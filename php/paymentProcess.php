@@ -1,6 +1,5 @@
 <?php
 error_reporting(0);
-//include_once("dbconnect.php");
 
 $email = $_GET['email']; //email
 $mobile = $_GET['mobile']; 
@@ -21,7 +20,7 @@ $data = array(
           'amount' => $amount * 100, 
 		  'description' => 'Payment for order id '.$orderid,
           'callback_url' => "http://yhkywy.com/sgtshop/return_url",
-          'redirect_url' => "http://yhkywy.com/sgtshop/php/payment_update.php?userid=$email&mobile=$mobile&amount=$amount&orderid=$orderid" 
+          'redirect_url' => "http://yhkywy.com/sgtshop/php/paymentUpdate.php?userid=$email&mobile=$mobile&amount=$amount&orderid=$orderid" 
 );
 
 
@@ -39,6 +38,5 @@ curl_close($process);
 
 $bill = json_decode($return, true);
 
-//echo "<pre>".print_r($bill, true)."</pre>";
 header("Location: {$bill['url']}");
 ?>

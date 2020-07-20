@@ -10,17 +10,17 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'product.dart';
 import 'user.dart';
 
-class EditProduct extends StatefulWidget {
+class EditItem extends StatefulWidget {
   final User user;
   final Product product;
 
-  const EditProduct({Key key, this.user, this.product}) : super(key: key);
+  const EditItem({Key key, this.user, this.product}) : super(key: key);
 
   @override
-  _EditProductState createState() => _EditProductState();
+  _EditItemState createState() => _EditItemState();
 }
 
-class _EditProductState extends State<EditProduct> {
+class _EditItemState extends State<EditItem> {
   String server = "https://yhkywy.com/sgtshop";
   TextEditingController prnameEditingController = new TextEditingController();
   TextEditingController priceEditingController = new TextEditingController();
@@ -494,7 +494,7 @@ class _EditProductState extends State<EditProduct> {
     
     if (_image!=null){
        base64Image = base64Encode(_image.readAsBytesSync());
-      http.post(server+"/php/update_product.php", body: {
+      http.post(server+"/php/updateSGTproduct.php", body: {
       "prid": widget.product.pid,
       "prname": prnameEditingController.text,
       "quantity": qtyEditingController.text,
@@ -518,7 +518,7 @@ class _EditProductState extends State<EditProduct> {
       pr.dismiss();
     });
     }else{
-          http.post(server+"/php/update_product.php", body: {
+          http.post(server+"/php/updateSGTproduct.php", body: {
       "prid": widget.product.pid,
       "prname": prnameEditingController.text,
       "quantity": qtyEditingController.text,

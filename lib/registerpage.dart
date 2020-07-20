@@ -6,7 +6,7 @@ import 'package:sgtshop/loginpage.dart';
 void main() => runApp(RegisterPage());
 double screenHeight;
 bool _isChecked = false;
-String urlRegister = "https://yhkywy.com/sgtshop/php/register_user.php";
+String urlRegister = "https://yhkywy.com/sgtshop/php/registerUserPart.php";
 TextEditingController nameEditingController = new TextEditingController();
 TextEditingController emailEditingController = new TextEditingController();
 TextEditingController passEditingController = new TextEditingController();

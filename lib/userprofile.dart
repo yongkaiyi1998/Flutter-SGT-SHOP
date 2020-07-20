@@ -8,17 +8,17 @@ import 'package:toast/toast.dart';
 import 'package:http/http.dart' as http;
 import 'package:recase/recase.dart';
 
-void main() => runApp(ProfileScreen());
+void main() => runApp(UserProfile());
 
-class ProfileScreen extends StatefulWidget {
+class UserProfile extends StatefulWidget {
   final User user;
 
-  const ProfileScreen({Key key, this.user}) : super(key: key);
+  const UserProfile({Key key, this.user}) : super(key: key);
   @override
-  _ProfileScreenState createState() => _ProfileScreenState();
+  _UserProfileState createState() => _UserProfileState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _UserProfileState extends State<UserProfile> {
   String server = "https://yhkywy.com/sgtshop";
   double screenHeight, screenWidth;
   final date = new DateFormat('dd-MM-yyyy hh:mm a');
@@ -519,7 +519,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
     ReCase recasename = new ReCase(name);
     print(recasename.titleCase.toString());
-    http.post(server + "/php/update_profile.php", body: {
+    http.post(server + "/php/updateUSERINFO.php", body: {
       "email": widget.user.email,
       "name": recasename.titleCase.toString(),
     }).then((res) {
@@ -547,7 +547,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       return;
     }
 
-    http.post(server + "/php/update_profile.php", body: {
+    http.post(server + "/php/updateUSERINFO.php", body: {
       "email": widget.user.email,
       "oldpassword": pass1,
       "newpassword": pass2,
@@ -577,7 +577,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
     }
-    http.post(server + "/php/update_profile.php", body: {
+    http.post(server + "/php/updateUSERINFO.php", body: {
       "email": widget.user.email,
       "phone": phone,
     }).then((res) {
@@ -630,7 +630,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (BuildContext context) => StoreCreditScreen(
+                        builder: (BuildContext context) => StoreCredit(
                               user: widget.user,
                               val: cr,
                             )));

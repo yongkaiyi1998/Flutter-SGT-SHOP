@@ -7,12 +7,12 @@ $prid = $_POST['prid'];
 
 if (isset($type)){
     if ($type == "Recent"){
-        $sql = "SELECT * FROM product ORDER BY date DESC LIMIT 20";    
+        $sql = "SELECT * FROM product ORDER BY date DESC LIMIT 15";    
     }else{
         $sql = "SELECT * FROM product WHERE ptype = '$type'";    
     }
 }else{
-    $sql = "SELECT * FROM product ORDER BY date DESC LIMIT 20";    
+    $sql = "SELECT * FROM product ORDER BY date DESC LIMIT 15";    
 }
 if (isset($name)){
    $sql = "SELECT * FROM product WHERE pname LIKE  '%$name%'";

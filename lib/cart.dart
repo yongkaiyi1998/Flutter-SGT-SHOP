@@ -4,7 +4,7 @@ import 'package:sgtshop/user.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:progress_dialog/progress_dialog.dart';
-import 'package:sgtshop/mainscreen.dart';
+import 'package:sgtshop/mainpage.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:toast/toast.dart';
@@ -14,18 +14,18 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:async';
 import 'package:random_string/random_string.dart';
 import 'package:intl/intl.dart';
-import 'paymentscreen.dart';
+import 'payment.dart';
 
-void main() => runApp(CartScreen());
+void main() => runApp(Cart());
 
-class CartScreen extends StatefulWidget {
+class Cart extends StatefulWidget {
   final User user;
-  const CartScreen({Key key, this.user}) : super(key: key);
+  const Cart({Key key, this.user}) : super(key: key);
   @override
-  _CartScreenState createState() => _CartScreenState();
+  _CartState createState() => _CartState();
 }
 
-class _CartScreenState extends State<CartScreen> {
+class _CartState extends State<Cart> {
   double screenHeight, screenWidth;
   List cartData;
   double _weight = 0.0, _totalprice = 0.0;
@@ -602,7 +602,7 @@ class _CartScreenState extends State<CartScreen> {
           MaterialButton(
               onPressed: () {
                 Navigator.of(context).pop(false);
-                http.post(server + "/php/delete_cart.php", body: {
+                http.post(server + "/php/deletecartrecord.php", body: {
                   "email": widget.user.email,
                 }).then((res) {
                   print(res.body);
@@ -772,7 +772,7 @@ class _CartScreenState extends State<CartScreen> {
     await Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (BuildContext context) => PaymentScreen(
+            builder: (BuildContext context) => Payment(
                   user: widget.user,
                   val: _totalprice.toStringAsFixed(2),
                   orderid: orderid,
@@ -785,7 +785,7 @@ class _CartScreenState extends State<CartScreen> {
         type: ProgressDialogType.Normal, isDismissible: true);
     pr.style(message: "Updating cart");
     pr.show();
-    String urlPayment = server + "/php/paymentsc.php";
+    String urlPayment = server + "/php/paymentScreen.php";
     await http.post(urlPayment, body: {
       "userid": widget.user.email,
       "amount": _totalprice.toStringAsFixed(2),
@@ -838,13 +838,13 @@ class _CartScreenState extends State<CartScreen> {
           return StatefulBuilder(
             builder: (context, newSetState) {
               return AlertDialog(
-                backgroundColor: Colors.black,
+                backgroundColor: Colors.purple[300],
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0))),
                 title: Text(
                   "Select New Delivery Location",
                   style: TextStyle(
-                    color: Colors.orange,
+                    color: Colors.white,
                   ),
                 ),
                 titlePadding: EdgeInsets.all(5),
@@ -876,8 +876,8 @@ class _CartScreenState extends State<CartScreen> {
                     //minWidth: 200,
                     height: 20,
                     child: Text('Close'),
-                    color: Colors.orange,
-                    textColor: Colors.black,
+                    color: Colors.purple,
+                    textColor: Colors.white,
                     elevation: 10,
                     onPressed: () =>
                         [markers.clear(), Navigator.of(context).pop(false)],
@@ -984,7 +984,7 @@ class _CartScreenState extends State<CartScreen> {
         return;
       }
     }
-    String urlLoadJobs = server + "/php/update_cart.php";
+    String urlLoadJobs = server + "/php/updatecartrecord.php";
     http.post(urlLoadJobs, body: {
       "email": widget.user.email,
       "prodid": cartData[index]['pid'],
@@ -1008,6 +1008,7 @@ class _CartScreenState extends State<CartScreen> {
     showDialog(
       context: context,
       builder: (context) => new AlertDialog(
+        backgroundColor: Colors.purple[300],
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(20.0))),
         title: new Text(
@@ -1020,7 +1021,7 @@ class _CartScreenState extends State<CartScreen> {
           MaterialButton(
               onPressed: () {
                 Navigator.of(context).pop(false);
-                http.post(server + "/php/delete_cart.php", body: {
+                http.post(server + "/php/deletecartrecord.php", body: {
                   "email": widget.user.email,
                   "prodid": cartData[index]['pid'],
                 }).then((res) {
@@ -1039,7 +1040,7 @@ class _CartScreenState extends State<CartScreen> {
               child: Text(
                 "Yes",
                 style: TextStyle(
-                  color: Colors.orange,
+                  color: Colors.white,
                 ),
               )),
           MaterialButton(
@@ -1049,7 +1050,7 @@ class _CartScreenState extends State<CartScreen> {
               child: Text(
                 "Cancel",
                 style: TextStyle(
-                  color: Colors.orange,
+                  color: Colors.white,
                 ),
               )),
         ],
@@ -1069,7 +1070,7 @@ class _CartScreenState extends State<CartScreen> {
     pr.style(message: "Updating cart...");
     pr.show();
 
-    String urlLoadJobs = server + "/php/load_cart.php";
+    String urlLoadJobs = server + "/php/loadcartrecord.php";
     http.post(urlLoadJobs, body: {
       "email": widget.user.email,
     }).then((res) {
@@ -1082,7 +1083,7 @@ class _CartScreenState extends State<CartScreen> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (BuildContext context) => MainScreen(
+                builder: (BuildContext context) => MainPage(
                       user: widget.user,
                     )));
       }

@@ -9,12 +9,12 @@ import 'package:http/http.dart' as http;
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:image_cropper/image_cropper.dart';
 
-class NewProduct extends StatefulWidget {
+class NewItem extends StatefulWidget {
   @override
-  _NewProductState createState() => _NewProductState();
+  _NewItemState createState() => _NewItemState();
 }
 
-class _NewProductState extends State<NewProduct> {
+class _NewItemState extends State<NewItem> {
   String server = "https://yhkywy.com/sgtshop";
   double screenHeight, screenWidth;
   File _image;
@@ -557,7 +557,7 @@ class _NewProductState extends State<NewProduct> {
     pr.show();
     String base64Image = base64Encode(_image.readAsBytesSync());
 
-    http.post(server + "/php/insert_product.php", body: {
+    http.post(server + "/php/insertSGTproduct.php", body: {
       "prid": _scanBarcode,
       "prname": productnameEditingController.text,
       "quantity": quantityEditingController.text,

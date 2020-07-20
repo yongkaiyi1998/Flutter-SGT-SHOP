@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sgtshop/mainscreen.dart';
+import 'package:sgtshop/mainpage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toast/toast.dart';
 import 'user.dart';
@@ -56,16 +56,16 @@ class SplashScreen1 extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   CircleAvatar(
-                    backgroundColor: Colors.black,
+                    backgroundColor: Colors.red,
                     radius: 96,
                     child: CircleAvatar(
-                      backgroundColor: Colors.yellow[300],
+                      backgroundColor: Colors.black,
                       radius: 93,
                       child: Text(
                         ' S.G.T \n Shop',
                         style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 48,
+                            color: Colors.white,
+                            fontSize: 56,
                             fontFamily: 'Acme',
                             fontWeight: FontWeight.w900),
                       ),
@@ -120,15 +120,15 @@ class SplashScreen2 extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   CircleAvatar(
-                    backgroundColor: Colors.black,
+                    backgroundColor: Colors.red,
                     radius: 96,
                     child: CircleAvatar(
-                      backgroundColor: Colors.yellow[300],
+                      backgroundColor: Colors.black,
                       radius: 93,
                       child: Text(
                         ' S.G.T \n Shop',
                         style: TextStyle(
-                            color: Colors.black,
+                            color: Colors.white,
                             fontSize: 48,
                             fontFamily: 'Acme',
                             fontWeight: FontWeight.w900),
@@ -185,15 +185,15 @@ class SplashScreen3 extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   CircleAvatar(
-                    backgroundColor: Colors.black,
+                    backgroundColor: Colors.red,
                     radius: 96,
                     child: CircleAvatar(
-                      backgroundColor: Colors.yellow[300],
+                      backgroundColor: Colors.black,
                       radius: 93,
                       child: Text(
                         ' S.G.T \n Shop',
                         style: TextStyle(
-                            color: Colors.black,
+                            color: Colors.white,
                             fontSize: 48,
                             fontFamily: 'Acme',
                             fontWeight: FontWeight.w900),
@@ -299,7 +299,7 @@ class _ProgressIndicatorState extends State<ProgressIndicator>
 
   //////load user data//////
   void loginUser(String email, String pass, BuildContext ctx) {
-    http.post("https://yhkywy.com/sgtshop/php/login_user.php", body: {
+    http.post("https://yhkywy.com/sgtshop/php/loginUserPart.php", body: {
       "email": email,
       "password": pass,
     })
@@ -320,7 +320,7 @@ class _ProgressIndicatorState extends State<ProgressIndicator>
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (BuildContext context) => MainScreen(
+                builder: (BuildContext context) => MainPage(
                       user: _user,
                     )));
       } else {

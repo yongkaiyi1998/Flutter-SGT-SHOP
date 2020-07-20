@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sgtshop/mainscreen.dart';
+import 'package:sgtshop/mainpage.dart';
 import 'package:sgtshop/registerpage.dart';
 import 'package:http/http.dart' as http;
 import 'package:sgtshop/user.dart';
@@ -19,7 +19,7 @@ class _LoginPageState extends State<LoginPage> {
   double screenHeight;
   TextEditingController emailEditingController = new TextEditingController();
   TextEditingController passEditingController = new TextEditingController();
-  String urlLogin = "https://yhkywy.com/sgtshop/php/login_user.php";
+  String urlLogin = "https://yhkywy.com/sgtshop/php/loginUserPart.php";
   String server = "https://yhkywy.com/sgtshop";
 
   @override
@@ -212,7 +212,7 @@ class _LoginPageState extends State<LoginPage> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (BuildContext context) => MainScreen(
+                builder: (BuildContext context) => MainPage(
                       user: _user,
                     )));
       } else {
@@ -363,7 +363,7 @@ class _LoginPageState extends State<LoginPage> {
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
     }
-    http.post(server + "/php/update_profile.php", body: {
+    http.post(server + "/php/updateUSERINFO.php", body: {
       "email": ownemail,
       "newpassword": newpassword,
     }).then((res) {

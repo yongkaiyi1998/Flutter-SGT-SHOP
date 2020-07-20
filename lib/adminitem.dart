@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sgtshop/user.dart';
 import 'product.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'newproduct.dart';
+import 'newitem.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:progress_dialog/progress_dialog.dart';
@@ -11,20 +11,20 @@ import 'dart:io';
 import 'dart:async';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter/services.dart';
-import 'editproduct.dart';
+import 'edititem.dart';
 
-void main() => runApp(AdminProduct());
+void main() => runApp(AdminItem());
 
-class AdminProduct extends StatefulWidget {
+class AdminItem extends StatefulWidget {
   final User user;
 
-  const AdminProduct({Key key, this.user}) : super(key: key);
+  const AdminItem({Key key, this.user}) : super(key: key);
 
   @override
-  _AdminProductState createState() => _AdminProductState();
+  _AdminItemState createState() => _AdminItemState();
 }
 
-class _AdminProductState extends State<AdminProduct> {
+class _AdminItemState extends State<AdminItem> {
   bool _visible = false;
   String cartquantity = "0";
   double screenHeight, screenWidth;
@@ -301,7 +301,7 @@ class _AdminProductState extends State<AdminProduct> {
   }
 
   void _loadSingleProduct(String prid) {
-    String urlLoadJobs = server + "/php/load_products.php";
+    String urlLoadJobs = server + "/php/loadSGTproducts.php";
     http.post(urlLoadJobs, body: {
       "prid": prid,
     }).then((res) {
@@ -328,7 +328,7 @@ class _AdminProductState extends State<AdminProduct> {
           type: ProgressDialogType.Normal, isDismissible: true);
       pr.style(message: "Searching");
       pr.show();
-      String urlLoadJobs = server + "/php/load_products.php";
+      String urlLoadJobs = server + "/php/loadSGTproducts.php";
       http
           .post(urlLoadJobs, body: {
             "name": prname.toString(),
@@ -456,7 +456,7 @@ class _AdminProductState extends State<AdminProduct> {
     pr.show();
     String prid = productdata[index]['pid'];
     print("prid:" + prid);
-    http.post(server + "/php/delete_product.php", body: {
+    http.post(server + "/php/deleteSGTproduct.php", body: {
       "prodid": prid,
     }).then((res) {
       print(res.body);
@@ -489,7 +489,7 @@ class _AdminProductState extends State<AdminProduct> {
     await Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (BuildContext context) => EditProduct(
+            builder: (BuildContext context) => EditItem(
                   user: widget.user,
                   product: product,
                 )));
@@ -502,12 +502,12 @@ class _AdminProductState extends State<AdminProduct> {
 
   Future<void> createNewProduct() async {
     await Navigator.push(context,
-        MaterialPageRoute(builder: (BuildContext context) => NewProduct()));
+        MaterialPageRoute(builder: (BuildContext context) => NewItem()));
     _loadData();
   }
 
   void _loadData() {
-    String urlLoadJobs = server + "/php/load_products.php";
+    String urlLoadJobs = server + "/php/loadSGTproducts.php";
     http.post(urlLoadJobs, body: {}).then((res) {
       print(res.body);
       setState(() {

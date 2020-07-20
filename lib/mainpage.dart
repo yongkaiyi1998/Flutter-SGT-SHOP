@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-//import 'package:flutter/services.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'dart:async';
@@ -7,28 +6,27 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:toast/toast.dart';
-//mport 'dart:io'; //SocketException
 import 'package:sgtshop/user.dart';
-import 'package:sgtshop/profilescreen.dart';
-import 'package:sgtshop/adminproduct.dart';
-import 'package:sgtshop/cartscreen.dart';
-import 'paymenthistoryscreen.dart';
+import 'package:sgtshop/userprofile.dart';
+import 'package:sgtshop/adminitem.dart';
+import 'package:sgtshop/cart.dart';
+import 'paymenthistory.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'loginpage.dart';
 
-void main() => runApp(MainScreen());
+void main() => runApp(MainPage());
 
-class MainScreen extends StatefulWidget {
+class MainPage extends StatefulWidget {
   final User user;
 
-  const MainScreen({Key key, this.user}) : super(key: key);
+  const MainPage({Key key, this.user}) : super(key: key);
 
   @override
-  _MainScreenState createState() => _MainScreenState();
+  _MainPageState createState() => _MainPageState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _MainPageState extends State<MainPage> {
   GlobalKey<RefreshIndicatorState> refreshKey;
   //bool _visible = false; //search
   double screenHeight, screenWidth;
@@ -74,7 +72,7 @@ class _MainScreenState extends State<MainScreen> {
         return _shopItem();
         break;
       case 2:
-        return CartScreen(
+        return Cart(
           user: widget.user,
         );
         break;
@@ -179,7 +177,7 @@ class _MainScreenState extends State<MainScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (BuildContext context) =>
-                                    ProfileScreen(
+                                    UserProfile(
                                       user: widget.user,
                                     )))
                       ]),
@@ -228,7 +226,7 @@ class _MainScreenState extends State<MainScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (BuildContext context) => AdminProduct(
+                                builder: (BuildContext context) => AdminItem(
                                       user: widget.user,
                                     )))
                       ]),
@@ -241,7 +239,7 @@ class _MainScreenState extends State<MainScreen> {
 
   //////load data//////
   void _loadData() async {
-    String urlLoadJobs = server + "/php/load_products.php";
+    String urlLoadJobs = server + "/php/loadSGTproducts.php";
     await http.post(urlLoadJobs, body: {}).then((res) {
       if (res.body == "nodata") {
         cartquantity = "0";
@@ -405,7 +403,7 @@ class _MainScreenState extends State<MainScreen> {
         pr.style(message: "Adding to your cart...");
         pr.show();
 
-        String urlLoadJobs = server + "/php/insert_cart.php";
+        String urlLoadJobs = server + "/php/insertcartrecord.php";
 
         http.post(urlLoadJobs, body: {
           "email": widget.user.email,
@@ -444,7 +442,7 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   void _loadCartQuantity() async {
-    String urlLoadJobs = server + "/php/load_cartquantity.php";
+    String urlLoadJobs = server + "/php/loadcartrecordquantity.php";
     await http.post(urlLoadJobs, body: {
       "email": widget.user.email,
     }).then((res) {
@@ -496,7 +494,7 @@ class _MainScreenState extends State<MainScreen> {
           type: ProgressDialogType.Normal, isDismissible: true);
       pr.style(message: "In Searching");
       pr.show();
-      String urlLoadJobs = server + "/php/load_products.php";
+      String urlLoadJobs = server + "/php/loadSGTproducts.php";
       http.post(urlLoadJobs, body: {
         "type": type,
       }).then((res) {
@@ -542,7 +540,7 @@ class _MainScreenState extends State<MainScreen> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (BuildContext context) => PaymentHistoryScreen(
+            builder: (BuildContext context) => PaymentHistory(
                   user: widget.user,
                 )));
   }

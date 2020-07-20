@@ -25,7 +25,7 @@ $receiptid ="storecredit";
                   while ($rowp = $productresult->fetch_assoc()){
                     $prquantity = $rowp["pquantity"];
                     $prevsold = $rowp["sold"];
-                    $newquantity = $prquantity - $cq; //quantity in store - quantity ordered by user
+                    $newquantity = $prquantity - $cq; 
                     $newsold = $prevsold + $cq;
                     $sqlupdatequantity = "UPDATE product SET pquantity = '$newquantity', sold = '$newsold' WHERE pid = '$prodid'";
                     $conn->query($sqlupdatequantity);

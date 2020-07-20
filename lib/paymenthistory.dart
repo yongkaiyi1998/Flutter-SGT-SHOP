@@ -2,21 +2,21 @@ import 'dart:convert';
 import 'user.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
-import 'orderdetailscreen.dart';
+import 'orderdetailpart.dart';
 import 'package:http/http.dart' as http;
 import 'order.dart';
 
 
-class PaymentHistoryScreen extends StatefulWidget {
+class PaymentHistory extends StatefulWidget {
   final User user;
 
-  const PaymentHistoryScreen({Key key, this.user}) : super(key: key);
+  const PaymentHistory({Key key, this.user}) : super(key: key);
 
   @override
-  _PaymentHistoryScreenState createState() => _PaymentHistoryScreenState();
+  _PaymentHistoryState createState() => _PaymentHistoryState();
 }
 
-class _PaymentHistoryScreenState extends State<PaymentHistoryScreen> {
+class _PaymentHistoryState extends State<PaymentHistory> {
   List _paymentdata;
   double screenHeight, screenWidth;
   String titlecenter = "Loading payment history";
@@ -121,7 +121,7 @@ class _PaymentHistoryScreenState extends State<PaymentHistoryScreen> {
 
   Future<void> _loadPayHis() async {
     String urlLoadJobs =
-        "https://yhkywy.com/sgtshop/php/load_paymenthistory.php";
+        "https://yhkywy.com/sgtshop/php/readpaymenthistory.php";
     await http
         .post(urlLoadJobs, body: {"email": widget.user.email}).then((res) {
       print(res.body);
@@ -151,7 +151,7 @@ class _PaymentHistoryScreenState extends State<PaymentHistoryScreen> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (BuildContext context) => OrderDetailScreen(
+            builder: (BuildContext context) => OrderDetail(
                   order: order,
                 )));
   }

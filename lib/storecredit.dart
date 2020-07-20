@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 
 import 'user.dart';
 
-class StoreCreditScreen extends StatefulWidget {
+class StoreCredit extends StatefulWidget {
   final User user;
   final String  val;
-  StoreCreditScreen({this.user,  this.val});
+  StoreCredit({this.user,  this.val});
 
   @override
-  _StoreCreditScreenState createState() => _StoreCreditScreenState();
+  _StoreCreditState createState() => _StoreCreditState();
 }
 
-class _StoreCreditScreenState extends State<StoreCreditScreen> {
+class _StoreCreditState extends State<StoreCredit> {
   Completer<WebViewController> _controller = Completer<WebViewController>();
 
   @override
@@ -21,14 +21,14 @@ class _StoreCreditScreenState extends State<StoreCreditScreen> {
     return Scaffold(
         appBar: AppBar(
           title: Text('Buy Store Credit'),
-          backgroundColor: Colors.grey[900],
+          backgroundColor: Colors.purple[700],
         ),
         body: Column(
           children: <Widget>[
             Expanded(
               child: WebView(
                 initialUrl:
-                    'http://yhkywy.com/sgtshop/php/buycredit.php?email=' +
+                    'http://yhkywy.com/sgtshop/php/purchasecreditpart.php?email=' +
                         widget.user.email +
                         '&mobile=' +
                         widget.user.phone +

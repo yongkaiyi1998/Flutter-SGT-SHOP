@@ -5,15 +5,15 @@ import 'package:http/http.dart' as http;
 import 'package:cached_network_image/cached_network_image.dart';
 //import 'package:intl/intl.dart';
 
-class OrderDetailScreen extends StatefulWidget {
+class OrderDetail extends StatefulWidget {
   final Order order;
-  const OrderDetailScreen({Key key, this.order}) : super(key: key);
+  const OrderDetail({Key key, this.order}) : super(key: key);
 
   @override
-  _OrderDetailScreenState createState() => _OrderDetailScreenState();
+  _OrderDetailState createState() => _OrderDetailState();
 }
 
-class _OrderDetailScreenState extends State<OrderDetailScreen> {
+class _OrderDetailState extends State<OrderDetail> {
   List _orderdetails;
   String titlecenter = "Loading order details";
   double screenHeight, screenWidth;
@@ -127,7 +127,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
   }
 
   _loadOrderDetails() async {
-    String urlLoadJobs = "https://yhkywy.com/sgtshop/php/load_carthistory.php";
+    String urlLoadJobs = "https://yhkywy.com/sgtshop/php/loadcartrecordhistory.php";
     await http.post(urlLoadJobs, body: {
       "orderid": widget.order.orderid,
     }).then((res) {

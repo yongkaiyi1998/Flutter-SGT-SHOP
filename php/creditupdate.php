@@ -1,7 +1,7 @@
 <?php
 error_reporting(0);
 include_once("dbconnect.php");
-$userid = $_GET['userid'];
+$username = $_GET['userid'];
 $mobile = $_GET['mobile'];
 $amount = $_GET['amount'];
 $newcr = $_GET['newcredit'];
@@ -31,16 +31,18 @@ foreach ($data as $key => $value) {
     }
 }
  
- 
 $signed= hash_hmac('sha256', $signing, 'S-3K-Ipcr4jjFwIXakbk9vDQ');
+
 if ($signed === $data['x_signature']) {
 
-    if ($paidstatus == "Success"){ //payment success
-        $sqlupdate = "UPDATE user_info SET credit = '$newcr' WHERE EMAIL = '$userid'";
+    if ($paidstatus == "Success"){ 
+        $sqlupdate = "UPDATE user_info SET credit = '$newcr' WHERE EMAIL = '$username'";
         $conn->query($sqlupdate);
     }
-        echo '<br><br><body><div><h2><br><br><center>Receipt</center></h1><table border=1 width=80% align=center><tr><td>Receipt ID</td><td>'.$receiptid.'</td></tr><tr><td>Email to </td><td>'.$userid. ' </td></tr><td>Amount Paid </td><td>RM '.$amount.'</td></tr><tr><td>Payment Status </td><td>'.$paidstatus.'</td></tr><tr><td>New Credit </td><td>'.$newcr.'</td></tr><tr><td>Date </td><td>'.date("d/m/Y").'</td></tr><tr><td>Time </td><td>'.date("h:i a").'</td></tr></table><br><p><center>Press back button to return to SGT Shop, Thank You!</center></p></div></body>';
-        //echo $sqlinsertcarthistory;
-    }
+    
+        echo '<br><br><body><div><h2><br><br><center>Receipt</center></h1><table border=1 width=80% align=center><tr><td>Receipt ID</td><td>'.$receiptid.'</td></tr><tr><td>Email to </td><td>'.$username. ' </td></tr><td>Amount Paid </td><td>RM '.$amount.'</td></tr><tr><td>Payment Status </td><td>'.$paidstatus.'</td></tr><tr><td>New Credit </td><td>'.$newcr.'</td></tr><tr><td>Date </td><td>'.date("d/m/Y").'</td></tr><tr><td>Time </td><td>'.date("h:i a").'</td></tr></table><br><p><center>Press back button to return to SGT Shop, Thank You!</center></p></div></body>';
+    
+    
+}
 
 ?>
