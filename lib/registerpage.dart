@@ -270,7 +270,10 @@ class _RegisterPageState extends State<RegisterPage> {
     if (name.length < 8) {
       Toast.show("Username must longer than 8 words", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-    } else if (opassword != password) {
+    } else if (password == "" || password == null){
+      Toast.show("Password cannot be blank", context,
+          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+    }else if(opassword != password) {
       Toast.show("Password different with Comfirm Password", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
     } else if (email.indexOf('@') < 0 || email.indexOf('.com') < 0) {
